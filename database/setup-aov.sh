@@ -2,7 +2,7 @@
 set -e
 
 BASE="$(cd "$(dirname "$0")/.." && pwd)"
-DB="aov"
+DB="${DB:-aov}"
 DATA_DIR="$PREFIX/var/lib/mysql"
 
 echo "[DB 1/4] Kiểm tra MariaDB..."
@@ -48,10 +48,14 @@ if [ "$exists" = "0" ]; then
     mariadb -uroot -e \
         "CREATE DATABASE \`$DB\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
 
-    # Dump cũ có câu lệnh UPDATE bảng alert trước khi bảng này tồn tại.
-    # --force cho phép tiếp tục nhập các câu lệnh còn lại.
-    mariadb --force -uroot "$DB" < "$BASE/database/nso.sql" \
-        > "$BASE/database/import-aov.log" 2>&1 || true
+    # Nhập SQL vào đúng database đã chọn; dừng nếu có lỗi.
+    if ! mariadb -uroot "$DB" < "$BASE/database/nso.sql" \
+        > "$BASE/database/import-aov.log" 2>&1; then
+        echo "LỖI: Nhập SQL thất bại. Xem log:"
+        echo "$BASE/database/import-aov.log"
+        tail -30 "$BASE/database/import-aov.log"
+        exit 1
+    fi
 else
     echo "Database $DB đã tồn tại; giữ nguyên dữ liệu hiện có."
 fi
@@ -68,6 +72,6 @@ for table in ninja npc map item; do
 done
 
 echo "[DB 4/4] Áp dụng bản vá..."
-bash "$BASE/database/repair-aov.sh"
+DB="$DB" bash "$BASE/database/repair-aov.sh"
 
 echo "Hoàn tất thiết lập database $DB."

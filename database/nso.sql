@@ -3823,15 +3823,3 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
 -- Dump completed on 2026-09-01  8:25:36
-
-USE aov;
-
-UPDATE alert SET content='CHÀO MỪNG BẠN ĐẾN VỚI SERVER NINJA SCHOOL TERMUX
-- NINJA SCHOOL TERMUX V2
-
-
-- By Đăng Nguyễn
-
-- Server free nên chắc chắn có lỗi, vậy nên không cần hỏi
-
-- Zalo: Nguyễn Mạnh Đăng' WHERE id=0;

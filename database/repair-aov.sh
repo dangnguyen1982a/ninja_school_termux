@@ -2,7 +2,7 @@
 set -e
 BASE="$(cd "$(dirname "$0")/.." && pwd)"
 
-DB="aov"
+DB="${DB:-aov}"
 
 if ! mariadb -uroot -Nse "SELECT 1" >/dev/null 2>&1; then
     echo "LỖI: MariaDB chưa chạy."
@@ -10,7 +10,7 @@ if ! mariadb -uroot -Nse "SELECT 1" >/dev/null 2>&1; then
 fi
 
 if ! mariadb -uroot -Nse "SHOW DATABASES LIKE '$DB'" | grep -qx "$DB"; then
-    echo "LỖI: Chưa có database aov. Hãy nhập database gốc trước."
+    echo "LỖI: Chưa có database $DB. Hãy nhập database gốc trước."
     exit 1
 fi
 
@@ -78,7 +78,7 @@ sql "CREATE TABLE IF NOT EXISTS alert (
     content TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
 
-if [ "$(mariadb -uroot -Nse "SELECT COUNT(*) FROM aov.alert")" = "0" ]; then
+if [ "$(mariadb -uroot -Nse "SELECT COUNT(*) FROM ${DB}.alert")" = "0" ]; then
     sql "INSERT INTO alert (content) VALUES ('Chào mừng đến với Ninja School V2!')"
 fi
 
@@ -119,7 +119,7 @@ for table in nj_arrow nj_part nj_image nj_effect nj_skill; do
     file="$BASE/database/${table}_import.sql"
     if [ -f "$file" ]; then
         count="$(mariadb -uroot -Nse \
-          "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='aov' AND table_name='$table'")"
+          "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$DB' AND table_name='$table'")"
         if [ "$count" = "0" ]; then
             mariadb -uroot "$DB" < "$file"
         else
@@ -131,4 +131,4 @@ for table in nj_arrow nj_part nj_image nj_effect nj_skill; do
     fi
 done
 
-echo "[5/5] Hoàn tất sửa database aov."
+echo "[5/5] Hoàn tất sửa database $DB."
