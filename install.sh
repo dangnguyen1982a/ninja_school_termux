@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -e
 
-BASE="$HOME/ninja-school-v2-final"
+BASE="$(cd "$(dirname "$0")" && pwd)"
 NsoC="$BASE/NsoC"
 WEB="$BASE/web"
 
@@ -70,7 +70,7 @@ echo "       CÀI ĐẶT HOÀN TẤT"
 echo "=========================================="
 echo
 echo "Server + Panel:"
-echo "  bash ~/ninja-school-v2-final/start-ninja.sh"
+echo "  bash $BASE/start-ninja.sh"
 echo
 echo "Panel:"
 echo "  http://127.0.0.1:8080"

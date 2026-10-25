@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -e
 
-BASE="$HOME/ninja-school-v2-final"
+BASE="$(cd "$(dirname "$0")" && pwd)"
 NsoC="$BASE/NsoC"
 WEB="$BASE/web"
 

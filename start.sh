@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -e
 
-BASE="$HOME/ninja-school-v2-final"
+BASE="$(cd "$(dirname "$0")" && pwd)"
 NsoC="$BASE/NsoC"
 WEB="$BASE/web"
 
@@ -41,9 +41,9 @@ echo
 echo "[2] Kiểm tra database..."
 
 mariadb -h 127.0.0.1 -P 3306 -u root \
-    -e "USE acc; USE aov; SELECT 1;" >/dev/null
+    -e "USE aov; SELECT 1;" >/dev/null
 
-echo "Database acc + aov: OK."
+echo "Database aov: OK."
 
 echo
 echo "[3] Khởi động Admin Panel..."

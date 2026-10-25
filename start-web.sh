@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-PANEL="$HOME/ninja-school-v2-final/web"
+BASE="$(cd "$(dirname "$0")" && pwd)"
+PANEL="$BASE/web"
 
 clear
 echo "=========================================="
@@ -8,7 +9,7 @@ echo "              NSO VIP PANEL"
 echo "=========================================="
 echo
 echo "Panel: http://127.0.0.1:8080"
-echo "Database: nso"
+echo "Database: aov"
 echo
 echo "Đang khởi động..."
 echo
