@@ -51,8 +51,18 @@ php -d opcache.enable=0 \
 
 echo "Panel: http://127.0.0.1:8080"
 
-echo "[4] Khởi động NsoC..."
+echo "[4] Biên dịch NsoC..."
 
 cd "$NsoC"
+if ! ant jar; then
+    echo "LỖI: Biên dịch thất bại. Server chưa được khởi động."
+    exit 1
+fi
 
+if [ ! -f "dist/Monter.jar" ]; then
+    echo "LỖI: Không tìm thấy dist/Monter.jar sau khi biên dịch."
+    exit 1
+fi
+
+echo "[5] Khởi động NsoC..."
 exec java -cp "dist/Monter.jar:lib/*" server.NinjaSchool
