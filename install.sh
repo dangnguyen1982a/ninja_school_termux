@@ -41,6 +41,14 @@ if [ ! -f "$WEB/index.php" ]; then
     exit 1
 fi
 
+echo "[5] Thiết lập database..."
+if [ ! -f "$BASE/database/setup-aov.sh" ]; then
+    echo "LỖI: Thiếu database/setup-aov.sh"
+    exit 1
+fi
+chmod +x "$BASE/database/setup-aov.sh"
+bash "$BASE/database/setup-aov.sh"
+
 echo "[5] Kiểm tra script sửa database..."
 if [ ! -f "$BASE/database/repair-aov.sh" ]; then
     echo "LỖI: Thiếu database/repair-aov.sh"
