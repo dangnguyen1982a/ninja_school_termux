@@ -9,6 +9,7 @@ import assembly.Char;
 import assembly.Map;
 import java.util.ArrayList;
 import server.Manager;
+import template.MapTemplate;
 
 /**
  *
@@ -42,6 +43,15 @@ public class TuTienData {
     }
 
     private void initMap() {
+        if (MapTemplate.arrTemplate == null
+                || MapTemplate.arrTemplate.length <= 192
+                || MapTemplate.arrTemplate[192] == null) {
+            this.map = new Map[0];
+            TuTienData.tuTien = null;
+            TuTienData.start = false;
+            System.out.println("[TuTien] Bo qua su kien: chua co du lieu map 192 trong SQL.");
+            return;
+        }
         this.map[0] = new Map(192, null, null, null, null, null, null, this);
     }
 
