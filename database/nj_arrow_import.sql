@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `nj_arrow` (`id` SMALLINT NOT NULL, `imgId` TEXT NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (1, '[264,265,266]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (2, '[444,445,446]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (3, '[447,448,449]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (4, '[450,451,452]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (5, '[453,454,455]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (6, '[460,460,460]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (7, '[462,462,462]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (8, '[461,461,461]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (9, '[463,463,463]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (10, '[1183,1183,1183]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (11, '[1460,1458,1462]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (12, '[1463,1463,1463]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (13, '[2257,2258,2259]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (14, '[2276,2276,2276]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (15, '[2327,2328,2329]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (16, '[3243,3243,3243]');
+INSERT INTO `nj_arrow` (`id`, `imgId`) VALUES (17, '[3300,3300,3300]');

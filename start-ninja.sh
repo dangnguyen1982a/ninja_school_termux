@@ -37,7 +37,7 @@ fi
 echo "[2] Kiểm tra database..."
 
 mariadb -h 127.0.0.1 -P 3306 -u root \
-    -e "USE acc; USE aov; SELECT 1;" >/dev/null
+    -e "USE aov; SELECT 1;" >/dev/null
 
 echo "Database OK."
 

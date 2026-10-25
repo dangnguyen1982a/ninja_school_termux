@@ -41,70 +41,20 @@ if [ ! -f "$WEB/index.php" ]; then
     exit 1
 fi
 
-echo "[5] Tạo start-ninja.sh..."
-
-cat > "$BASE/start-ninja.sh" <<'RUN'
-#!/data/data/com.termux/files/usr/bin/bash
-set -e
-
-BASE="$HOME/ninja-school-v2-final"
-NsoC="$BASE/NsoC"
-WEB="$BASE/web"
-
-echo "=========================================="
-echo "          NINJA SCHOOL V2"
-echo "=========================================="
-
-echo "[1] Kiểm tra MariaDB..."
-
-if ! mariadb -h 127.0.0.1 -P 3306 -u root -e "SELECT 1;" >/dev/null 2>&1; then
-    echo "MariaDB chưa chạy. Đang khởi động..."
-
-    mariadbd-safe >/dev/null 2>&1 &
-
-    echo "Đang chờ MariaDB..."
-
-    for i in {1..30}; do
-        if mariadb -h 127.0.0.1 -P 3306 -u root -e "SELECT 1;" >/dev/null 2>&1; then
-            echo "MariaDB đã sẵn sàng."
-            break
-        fi
-        sleep 1
-    done
-
-    if ! mariadb -h 127.0.0.1 -P 3306 -u root -e "SELECT 1;" >/dev/null 2>&1; then
-        echo "LỖI: Không thể khởi động MariaDB."
-        exit 1
-    fi
-else
-    echo "MariaDB đang chạy."
+echo "[5] Kiểm tra script sửa database..."
+if [ ! -f "$BASE/database/repair-aov.sh" ]; then
+    echo "LỖI: Thiếu database/repair-aov.sh"
+    exit 1
 fi
+chmod +x "$BASE/database/repair-aov.sh"
+echo "Đã chuẩn bị script sửa database."
+echo "Lưu ý: chạy script này sau khi MariaDB đã chạy và database aov đã được nhập:"
+echo "  bash $BASE/database/repair-aov.sh"
 
-echo "[2] Kiểm tra database..."
-
-mariadb -h 127.0.0.1 -P 3306 -u root \
-    -e "USE acc; USE aov; SELECT 1;" >/dev/null
-
-echo "Database OK."
-
-echo "[3] Khởi động Panel..."
-
-php -d opcache.enable=0 \
-    -d opcache.enable_cli=0 \
-    -S 127.0.0.1:8080 \
-    -t "$WEB" \
-    > "$BASE/panel.log" 2>&1 &
-
-echo "Panel: http://127.0.0.1:8080"
-
-echo "[4] Khởi động NsoC..."
-
-cd "$NsoC"
-
-exec java -cp "dist/Monter.jar:lib/*" server.NinjaSchool
-RUN
-
-chmod +x "$BASE/start-ninja.sh"
+if [ ! -f "$BASE/start-ninja.sh" ]; then
+    echo "LỖI: Thiếu start-ninja.sh; hãy khôi phục file khởi động."
+    exit 1
+fi
 
 echo
 echo "=========================================="
